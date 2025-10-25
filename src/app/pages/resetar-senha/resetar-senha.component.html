@@ -1,0 +1,29 @@
+<div class="form-container">
+  <h2>Redefinir Senha</h2>
+  
+  <div *ngIf="!token">
+    <p class="error-message">Token inválido ou não fornecido.</p>
+    <div class="links">
+      <a routerLink="/login">Voltar para o Login</a>
+    </div>
+  </div>
+  
+  <form [formGroup]="resetForm" (ngSubmit)="onSubmit()" *ngIf="token">
+    <div class="form-field">
+      <label for="novaSenha">Nova Senha:</label>
+      <input id="novaSenha" type="password" formControlName="novaSenha" />
+      <div *ngIf="resetForm.get('novaSenha')?.invalid && resetForm.get('novaSenha')?.touched" class="error">
+        A senha deve ter no mínimo 6 caracteres.
+      </div>
+    </div>
+    
+    <button type="submit" [disabled]="resetForm.invalid">Salvar Nova Senha</button>
+  </form>
+  
+  <div *ngIf="mensagemSucesso" class="success-message">
+    {{ mensagemSucesso }}
+  </div>
+  <div *ngIf="mensagemErro" class="error-message">
+    {{ mensagemErro }}
+  </div>
+</div>

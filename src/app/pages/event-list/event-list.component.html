@@ -1,0 +1,39 @@
+<div class="list-container">
+  <h2>Todos os Eventos</h2>
+
+  <form class="filter-form" [formGroup]="filterForm" (ngSubmit)="applyFilters()">
+    <div class="form-field">
+      <label for="nome">Nome:</label>
+      <input id="nome" type="text" formControlName="nome" placeholder="Nome do evento...">
+    </div>
+    
+    <div class="form-field">
+      <label for="local">Local do Evento:</label>
+      <input id="local" type="text" formControlName="local" placeholder="Ex: Teatro Santa Isabel">
+    </div>
+
+    <div class="form-field">
+      <label for="data">Data:</label>
+      <input id="data" type="date" formControlName="data">
+    </div>
+
+    <div class="filter-buttons">
+      <button type="submit" class="btn-filtrar">Filtrar</button>
+      <button type="button" class="btn-limpar" (click)="clearFilters()">Limpar Filtros</button>
+    </div>
+  </form>
+
+  <hr class="separator">
+
+  <div class="event-grid">
+    <div *ngIf="filteredEvents.length > 0; else noEventos">
+      <app-event-card *ngFor="let evento of filteredEvents" [evento]="evento">
+      </app-event-card>
+    </div>
+
+    <ng-template #noEventos>
+      <p>Nenhum evento encontrado com esses filtros.</p>
+    </ng-template>
+  </div>
+
+</div>

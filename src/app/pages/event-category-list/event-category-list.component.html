@@ -1,0 +1,18 @@
+<div class="list-container">
+  <h2>Eventos da Categoria: {{ categoriaTitulo }}</h2>
+
+  <div *ngIf="eventos$ | async as eventos; else loading">
+    <div *ngIf="eventos.length > 0; else noEventos">
+      <app-event-card *ngFor="let evento of eventos" [evento]="evento">
+      </app-event-card>
+    </div>
+
+    <ng-template #noEventos>
+      <p>Nenhum evento encontrado para esta categoria.</p>
+    </ng-template>
+  </div>
+
+  <ng-template #loading>
+    <p>Carregando eventos...</p>
+  </ng-template>
+</div>

@@ -1,0 +1,40 @@
+<div class="form-container">
+  <h2>Cadastrar Novo Evento</h2>
+  <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-field">
+      <label for="nome">Nome do Evento:</label>
+      <input id="nome" type="text" formControlName="nome" />
+    </div>
+
+    <div class="form-field">
+      <label for="descricao">Descrição:</label>
+      <textarea id="descricao" formControlName="descricao"></textarea>
+    </div>
+
+    <div class="form-field">
+      <label for="data">Data e Hora:</label>
+      <input id="data" type="datetime-local" formControlName="data" />
+    </div>
+
+    <div class="form-field">
+      <label for="local">Local:</label>
+      <input id="local" type="text" formControlName="local" />
+    </div>
+
+    <div class="form-field">
+      <label for="categoria">Categoria:</label>
+      <select id="categoria" formControlName="categoria">
+        <option value="" disabled>Selecione uma categoria</option>
+        <option *ngFor="let cat of categorias" [value]="cat">
+          {{ cat }}
+        </option>
+      </select>
+      <div *ngIf="eventForm.get('categoria')?.invalid && eventForm.get('categoria')?.touched" class="error">
+        Categoria é obrigatória.
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="eventForm.invalid">Salvar Evento</button>
+  </form>
+</div>

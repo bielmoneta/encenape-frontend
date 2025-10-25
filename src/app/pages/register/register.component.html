@@ -1,0 +1,30 @@
+<div class="form-container">
+  <h2>Cadastro - EncenaPE</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="form-field">
+      <label for="nome">Nome:</label>
+      <input id="nome" type="text" formControlName="nome" />
+      <div *ngIf="registerForm.get('nome')?.invalid && registerForm.get('nome')?.touched" class="error">
+        Nome é obrigatório.
+      </div>
+    </div>
+    <div class="form-field">
+      <label for="email">Email:</label>
+      <input id="email" type="email" formControlName="email" />
+      <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="error">
+        Email inválido.
+      </div>
+    </div>
+    <div class="form-field">
+      <label for="senha">Senha:</label>
+      <input id="senha" type="password" formControlName="senha" />
+      <div *ngIf="registerForm.get('senha')?.invalid && registerForm.get('senha')?.touched" class="error">
+        A senha deve ter no mínimo 6 caracteres.
+      </div>
+    </div>
+    <button type="submit" [disabled]="registerForm.invalid">Cadastrar</button>
+  </form>
+  <div class="links">
+    <a routerLink="/login">Já tem uma conta? Faça login</a>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="perfil-container">
+  <h2>Meu Perfil</h2>
+
+  <div *ngIf="userProfile; else loading">
+
+    <div *ngIf="mensagemSucesso" class="success-message">{{ mensagemSucesso }}</div>
+    <div *ngIf="mensagemErro" class="error-message">{{ mensagemErro }}</div>
+
+    <form *ngIf="isEditing; else viewMode" [formGroup]="perfilForm" (ngSubmit)="onSubmit()">
+      <div class="form-field">
+        <label for="nome">Nome:</label>
+        <input id="nome" type="text" formControlName="nome">
+        <div *ngIf="perfilForm.get('nome')?.invalid && perfilForm.get('nome')?.touched" class="error">
+          Nome é obrigatório.
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="email">Email:</label>
+        <input id="email" type="email" formControlName="email">
+        <div *ngIf="perfilForm.get('email')?.invalid && perfilForm.get('email')?.touched" class="error">
+          Email inválido.
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="btn-primary" [disabled]="perfilForm.invalid">Salvar</button>
+        <button type="button" class="btn-secondary" (click)="onCancel()">Cancelar</button>
+      </div>
+    </form>
+
+    <ng-template #viewMode>
+      <div class="profile-info">
+        <p><strong>Nome:</strong> {{ userProfile.nome }}</p>
+        <p><strong>Email:</strong> {{ userProfile.email }}</p>
+      </div>
+      <div class="button-group">
+        <button class="btn-primary" (click)="onEdit()">Editar Perfil</button>
+      </div>
+    </ng-template>
+
+  </div>
+
+  <ng-template #loading>
+    <p>Carregando informações do perfil...</p>
+  </ng-template>
+</div>

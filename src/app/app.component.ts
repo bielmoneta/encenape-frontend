@@ -1,12 +1,32 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AuthService, AuthUser } from './core/services/auth.service';
+import { RouterOutlet, RouterLink } from '@angular/router'; 
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [
+    CommonModule, 
+    RouterOutlet, 
+    RouterLink
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'encenape-frontend';
+
+  currentUser$: Observable<AuthUser | null>;
+
+  constructor(private authService: AuthService) {
+    // Conecte o Observable do componente ao Observable do serviço
+    this.currentUser$ = this.authService.currentUser$;
+  }
+
+  // Crie uma função de logout para o botão
+  logout(): void {
+    this.authService.logout();
+  }
 }

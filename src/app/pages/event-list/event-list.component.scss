@@ -1,0 +1,63 @@
+.list-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.filter-form {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap; // Permite que os itens quebrem a linha
+  gap: 16px; // Espaçamento entre os campos
+  align-items: flex-end; // Alinha os campos na parte de baixo
+  margin-bottom: 2rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; // Faz os campos crescerem para preencher o espaço
+
+  label {
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+  
+  button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+  }
+  
+  .btn-filtrar {
+    background-color: #007bff; // Azul
+    color: white;
+  }
+  .btn-limpar {
+    background-color: #6c757d; // Cinza
+    color: white;
+  }
+}
+
+.separator {
+  border: 0;
+  border-top: 1px solid #eee;
+  margin-bottom: 2rem;
+}

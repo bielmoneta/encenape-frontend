@@ -1,0 +1,27 @@
+<div class="home-container">
+  <h1>Descubra o melhor do teatro</h1>
+  <p>Encontre e compre ingressos para os melhores espetáculos.</p>
+  <button class="btn-primary" routerLink="/eventos">Ver Todos os Eventos</button>
+
+  <section class="destaques">
+    <h2>Eventos em Destaque</h2>
+
+    <div *ngIf="eventos$ | async as eventos; else loading">
+      <div *ngIf="eventos.length > 0; else noEventos">
+        <app-event-card *ngFor="let evento of eventos" [evento]="evento">
+        </app-event-card>
+      </div>
+
+      <ng-template #noEventos>
+        <p>Nenhum evento cadastrado no momento.</p>
+      </ng-template>
+    </div>
+
+    <ng-template #loading>
+      <p>Carregando eventos...</p>
+    </ng-template>
+
+  </section>
+</div>
+
+<router-outlet></router-outlet>

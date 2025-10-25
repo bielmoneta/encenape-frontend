@@ -1,0 +1,27 @@
+<div class="form-container">
+  <h2>Esqueceu sua Senha?</h2>
+  <p>Digite seu email e enviaremos um link para redefinir sua senha.</p>
+  
+  <form [formGroup]="forgotForm" (ngSubmit)="onSubmit()">
+    <div class="form-field">
+      <label for="email">Email:</label>
+      <input id="email" type="email" formControlName="email" />
+      <div *ngIf="forgotForm.get('email')?.invalid && forgotForm.get('email')?.touched" class="error">
+        Email inválido.
+      </div>
+    </div>
+    
+    <button type="submit" [disabled]="forgotForm.invalid">Enviar Link</button>
+  </form>
+  
+  <div *ngIf="mensagemSucesso" class="success-message">
+    {{ mensagemSucesso }}
+  </div>
+  <div *ngIf="mensagemErro" class="error-message">
+    {{ mensagemErro }}
+  </div>
+  
+  <div class="links">
+    <a routerLink="/login">Voltar para o Login</a>
+  </div>
+</div>
