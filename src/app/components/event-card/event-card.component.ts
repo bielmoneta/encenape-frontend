@@ -1,26 +1,43 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Evento } from '../../core/services/event.service';
+import { IngressoService } from '../../core/services/ingresso.service';
+import { AuthService } from '../../core/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-event-card',
   standalone: true,
-  imports: [CommonModule, DatePipe], // DatePipe formata a data para nós
-  template: `
-    <div class="card-container">
-      <h3>{{ evento.nome }}</h3>
-      <p>{{ evento.descricao }}</p>
-      <hr>
-      <small>
-        <strong>Data:</strong> {{ evento.data | date: 'dd/MM/yyyy HH:mm' }}
-      </small>
-      <br>
-      <small><strong>Local:</strong> {{ evento.local }}</small>
-    </div>
-  `,
+  imports: [CommonModule, DatePipe],
+  templateUrl: './event-card.component.html',
   styleUrls: ['./event-card.component.scss']
 })
+
 export class EventCardComponent {
-  // permite que o componente "receba" a informação do evento
   @Input({ required: true }) evento!: Evento;
+
+  constructor(
+    private ingressoService: IngressoService,
+    public authService: AuthService,
+    private router: Router
+  ) {}
+
+  comprar(): void {
+    if (!this.authService.currentUserValue) {
+      alert('Você precisa estar logado para comprar ingressos.');
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    this.ingressoService.comprarIngresso(this.evento.id).subscribe({
+      next: (ingressoComprado) => {
+        alert(`Ingresso para "${this.evento.nome}" comprado com sucesso!`);
+        console.log('Ingresso:', ingressoComprado);
+      },
+      error: (err) => {
+        console.error('Erro ao comprar ingresso:', err);
+        alert(`Erro ao comprar ingresso: ${err.error?.message || 'Tente novamente.'}`);
+      }
+    });
+  }
 }

@@ -5,13 +5,13 @@
       <li><a routerLink="/">Início</a></li>
       <li><a routerLink="/eventos">Eventos</a></li>
       <li><a routerLink="/criar-evento">Criar Evento</a></li>
-      <li><a routerLink="/">Ajuda</a></li>
+      <li><a routerLink="/ajuda">Ajuda</a></li>
     </ul>
 
  <div class="navbar-auth">
-      
+
   <div *ngIf="currentUser$ | async as user; else loggedOutLinks" class="profile-menu">
-    
+
     <div class="profile-menu-trigger">
       <span class="navbar-username">Olá, {{ user.nome }}</span>
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="profile-icon">

@@ -1,18 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService, UsuarioCompleto } from '../../core/services/auth.service';
+import { AuthService, AuthUser } from '../../core/services/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-perfil',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule], // Adicione ReactiveFormsModule
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './perfil.component.html',
   styleUrls: ['./perfil.component.scss']
 })
 export class PerfilComponent implements OnInit {
-  
-  userProfile: UsuarioCompleto | null = null;
+
+  userProfile: AuthUser | null = null;
+  currentUser$: Observable<AuthUser | null>;
+
   perfilForm: FormGroup;
   isEditing = false;
   mensagemSucesso = '';
@@ -22,6 +25,7 @@ export class PerfilComponent implements OnInit {
     private authService: AuthService,
     private fb: FormBuilder
   ) {
+    this.currentUser$ = this.authService.currentUser$;
     // Inicializa o formulário vazio
     this.perfilForm = this.fb.group({
       nome: ['', Validators.required],
@@ -30,19 +34,18 @@ export class PerfilComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // 1. Pega o ID do usuário logado
-    const currentUserId = this.authService.currentUserValue?.usuarioId;
+    // 3. Pega os dados DIRETAMENTE do usuário logado
+    this.userProfile = this.authService.currentUserValue;
 
-    if (currentUserId) {
-      // 2. Busca os dados completos no backend
-      this.authService.getUsuarioById(currentUserId).subscribe(user => {
-        this.userProfile = user;
-        // 3. Preenche o formulário com os dados recebidos
-        this.perfilForm.patchValue({
-          nome: user.nome,
-          email: user.email
-        });
+    // 4. Preenche o formulário com esses dados
+    if (this.userProfile) {
+      this.perfilForm.patchValue({
+        nome: this.userProfile.nome,
+        email: this.userProfile.email
       });
+    } else {
+        // Se, por algum motivo, o usuário não estiver logado ao chegar aqui
+        console.error("Usuário não logado acessou a página de perfil.");
     }
   }
 
@@ -72,8 +75,12 @@ export class PerfilComponent implements OnInit {
     const { nome, email } = this.perfilForm.value;
 
     this.authService.updatePerfil(this.userProfile.id, { nome, email }).subscribe({
-      next: (usuarioAtualizado) => {
+      next: (usuarioAtualizado: AuthUser) => {
         this.userProfile = usuarioAtualizado; // Atualiza os dados de visualização
+        this.perfilForm.patchValue({
+             nome: usuarioAtualizado.nome,
+             email: usuarioAtualizado.email
+        });
         this.isEditing = false; // Sai do modo de edição
         this.mensagemSucesso = 'Perfil atualizado com sucesso!';
       },

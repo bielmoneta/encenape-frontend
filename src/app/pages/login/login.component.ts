@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, Validators, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../core/services/auth.service';
+import { AuthService, AuthUser } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -31,14 +31,12 @@ export class LoginComponent {
   }
 
   onSubmit(): void {
-    if (this.loginForm.invalid) {
-      return;
-    }
+    if (this.loginForm.invalid) return;
 
     this.authService.logar(this.loginForm.value).subscribe({
-      next: (response) => {
-        console.log('Login bem-sucedido!', response);
-        alert(`Bem-vindo(a), ${response.nome}!`);
+      next: (user: AuthUser) => { 
+        console.log('Login bem-sucedido!', user);
+        alert(`Bem-vindo(a), ${user.nome}!`); 
         this.router.navigate(['/']); 
       },
       error: (err) => {

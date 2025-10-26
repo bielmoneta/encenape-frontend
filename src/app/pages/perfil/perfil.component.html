@@ -1,7 +1,7 @@
 <div class="perfil-container">
   <h2>Meu Perfil</h2>
 
-  <div *ngIf="userProfile; else loading">
+  <div *ngIf="currentUser$ | async as user; else loadingOrError">
 
     <div *ngIf="mensagemSucesso" class="success-message">{{ mensagemSucesso }}</div>
     <div *ngIf="mensagemErro" class="error-message">{{ mensagemErro }}</div>
@@ -31,8 +31,8 @@
 
     <ng-template #viewMode>
       <div class="profile-info">
-        <p><strong>Nome:</strong> {{ userProfile.nome }}</p>
-        <p><strong>Email:</strong> {{ userProfile.email }}</p>
+        <p><strong>Nome:</strong> {{ user.nome }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
       </div>
       <div class="button-group">
         <button class="btn-primary" (click)="onEdit()">Editar Perfil</button>
@@ -41,7 +41,7 @@
 
   </div>
 
-  <ng-template #loading>
+  <ng-template #loadingOrError>
     <p>Carregando informações do perfil...</p>
-  </ng-template>
+    </ng-template>
 </div>

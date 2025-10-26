@@ -1,0 +1,30 @@
+<div class="ingressos-container">
+  <h2>Meus Ingressos</h2>
+
+  <div *ngIf="meusIngressos$ | async as ingressos; else loadingOrError">
+    <div *ngIf="ingressos.length > 0; else noIngressos">
+
+      <div *ngFor="let ingresso of ingressos" class="ingresso-card">
+        <h3>{{ ingresso.eventoNome }}</h3>
+        <p>
+          <strong>Data do Evento:</strong> {{ ingresso.eventoData | date: 'dd/MM/yyyy HH:mm' }} <br>
+          <strong>Local:</strong> {{ ingresso.eventoLocal }}
+        </p>
+        <hr>
+        <small>
+          <strong>ID do Ingresso:</strong> {{ ingresso.id }} <br>
+          <strong>Data da Compra:</strong> {{ ingresso.dataCompra | date: 'dd/MM/yyyy HH:mm:ss' }}
+        </small>
+        </div>
+
+    </div>
+    <ng-template #noIngressos>
+      <p>Você ainda não comprou nenhum ingresso.</p>
+    </ng-template>
+  </div>
+
+  <ng-template #loadingOrError>
+    <p>Carregando seus ingressos...</p>
+  </ng-template>
+
+</div>

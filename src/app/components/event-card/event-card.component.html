@@ -1,1 +1,16 @@
-<p>event-card works!</p>
+<div class="card-container">
+  <h3>{{ evento.nome }}</h3>
+  <p>{{ evento.descricao }}</p>
+  <hr>
+  <small>
+    <strong>Data:</strong> {{ evento.data | date: 'dd/MM/yyyy HH:mm' }}
+  </small>
+  <br>
+  <small><strong>Local:</strong> {{ evento.local }}</small>
+  <br>
+  <small><strong>Categoria:</strong> {{ evento.categoria }}</small>
+
+  <div class="card-actions" *ngIf="authService.currentUser$ | async">
+    <button class="btn-comprar" (click)="comprar()">Comprar Ingresso</button>
+  </div>
+</div>

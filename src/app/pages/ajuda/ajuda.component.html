@@ -1,0 +1,78 @@
+<div class="ajuda-container">
+  <h1>Central de Ajuda - EncenaPE</h1>
+
+  <section class="faq-section">
+    <h2>Dúvidas Frequentes (FAQ)</h2>
+
+    <div class="faq-item">
+      <h3>Como me cadastro na plataforma?</h3>
+      <p>Clique no botão "Cadastrar" no canto superior direito. Preencha seu nome, email e crie uma senha. Você receberá uma confirmação (ou será redirecionado para o login).</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Esqueci minha senha. Como recupero?</h3>
+      <p>Na tela de login, clique em "Esqueceu sua senha?". Digite seu email cadastrado e enviaremos um link para você criar uma nova senha.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Como encontro eventos?</h3>
+      <p>Você pode ver os "Eventos em Destaque" na página inicial ou clicar em "Eventos" na barra de navegação para ver todos os eventos listados. Use os filtros na página de eventos para refinar sua busca por nome, data ou local.</p>
+    </div>
+
+     <div class="faq-item">
+      <h3>Como funciona a compra de ingressos?</h3>
+      <p>Após fazer login, navegue até o evento desejado e clique no botão "Comprar Ingresso". (Nota: Atualmente, a compra é simulada e não envolve pagamento real). Seus ingressos comprados aparecerão na seção "Meus Ingressos", acessível pelo menu do seu perfil.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Posso cadastrar um evento na plataforma?</h3>
+      <p>Sim! Se você for um produtor ou organizador, clique em "Criar Evento" na barra de navegação (é necessário estar logado, futuramente esta opção poderá ser restrita a administradores). Preencha os detalhes do seu evento, como nome, descrição, data, local e categoria.</p>
+    </div>
+
+     <div class="faq-item">
+      <h3>Como edito meu perfil?</h3>
+      <p>Clique no seu nome no canto superior direito para abrir o menu de perfil e selecione "Meu Perfil". Lá você poderá visualizar e editar seu nome e email cadastrados.</p>
+    </div>
+
+  </section>
+
+  <hr class="separator">
+
+  <section class="contact-section">
+    <h2>Ainda tem dúvidas? Fale Conosco</h2>
+    <p>Preencha o formulário abaixo e nossa equipe entrará em contato.</p>
+
+    <form class="contact-form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-field">
+        <label for="nome">Nome:</label>
+        <input id="nome" type="text" formControlName="nome">
+      </div>
+
+      <div class="form-field">
+        <label for="email">Seu Email:</label>
+        <input id="email" type="email" formControlName="email">
+        <div *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched" class="error">
+          Email inválido ou obrigatório.
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="assunto">Assunto:</label>
+        <input id="assunto" type="text" formControlName="assunto">
+      </div>
+
+      <div class="form-field">
+        <label for="mensagem">Sua Mensagem:</label>
+        <textarea id="mensagem" rows="5" formControlName="mensagem"></textarea>
+         <div *ngIf="contactForm.get('mensagem')?.invalid && contactForm.get('mensagem')?.touched" class="error">
+          Mensagem é obrigatória.
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary" [disabled]="contactForm.invalid">Enviar Mensagem</button>
+
+    </form>
+  </section>
+
+</div>
