@@ -1,175 +1,119 @@
-/* src/styles.scss */
+/* Você pode manter seus imports de fontes e normalize/reset aqui */
 
-/* Garante que a página ocupe a tela toda sem margens */
+/* Definindo variáveis CSS para as cores */
+:root {
+  --color-background: #F9ECE1;
+  --color-card: #75295A;
+  --color-primary-button: #FF7506; /* Botão principal (ações) */
+  --color-text-light: #F9ECE1; /* Texto que fica sobre fundo escuro */
+  --color-text-dark: #333; /* Texto que fica sobre fundo claro */
+  --color-accent: #FF7506; /* Para links, destaques, bordas ativas */
+  --color-error: #dc3545; /* Vermelho para mensagens de erro */
+  --color-success: #28a745; /* Verde para mensagens de sucesso */
+  --color-border-light: #ddd; /* Borda clara */
+}
+
+/* Aplicação inicial no corpo da página */
 body {
   margin: 0;
-  font-family: sans-serif;
-  background-color: #f4f4f4;
+  font-family: Poppins, sans-serif; /* Ou sua fonte preferida */
+  background-color: var(--color-background); /* Fundo da sua página */
+  color: var(--color-text-dark); /* Cor padrão do texto */
 }
 
-.navbar {
-  background-color: white;
-  padding: 1rem 2rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  border-bottom: 2px solid #e0e0e0;
-}
+/* Estilos globais para campos de formulário e botões */
+.form-field {
+  margin-bottom: 1rem;
 
-.navbar-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-}
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: var(--color-card); /* Cor dos rótulos */
+  }
 
-.navbar-brand {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #333;
-  text-decoration: none;
-}
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  textarea {
+    width: 100%;
+    padding: 0.75rem;
+    box-sizing: border-box;
+    border: 1px solid var(--color-border-light);
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: #fff; /* Fundo branco para inputs */
+    color: var(--color-text-dark);
+  }
 
-.navbar-links {
-  list-style: none;
-  display: flex;
-  margin: 0;
-  padding: 0;
-  
-  li {
-    margin: 0 15px;
-    a {
-      text-decoration: none;
-      color: #555;
-      font-weight: 500;
-    }
+  .error {
+    color: var(--color-error);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
   }
 }
 
-/* Estilização dos botões "Entrar" e "Cadastrar" */
-.navbar-auth a {
-  text-decoration: none;
-  padding: 8px 16px;
+.btn-primary {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--color-primary-button); /* Laranja */
+  color: var(--color-text-light);
+  border: none;
   border-radius: 5px;
-  font-weight: bold;
-  margin-left: 10px;
-
-  &.btn-secondary {
-    background-color: #f0f0f0;
-    color: #333;
-    border: 1px solid #ccc;
-  }
-  &.btn-primary {
-    background-color: #fd7e14; // A cor laranja do seu design!
-    color: white;
-  }
-}
-
-/* Adicione no final do seu styles.scss global */
-.navbar-auth {
-  display: flex;
-  align-items: center; // Alinha o texto e o botão
-  gap: 15px; // Espaçamento
-}
-
-.navbar-username {
-  color: #333;
-  font-weight: bold;
-}
-
-/* Reutiliza o estilo do 'btn-secondary' para o logout */
-.navbar-auth button.btn-secondary {
-  text-decoration: none;
-  padding: 8px 16px;
-  border-radius: 5px;
-  font-weight: bold;
-  font-family: Poppins; /* Garante que a fonte seja a mesma */
-  font-size: 1rem; /* Garante que o tamanho seja o mesmo */
-  background-color: #f0f0f0;
-  color: #333;
-  border: 1px solid #ccc;
   cursor: pointer;
-}
-
-/* ======================================================
-   ESTILOS DO NOVO MENU DE PERFIL (DROPDOWN)
-   ======================================================
-*/
-
-/* 1. O contêiner principal do menu */
-.profile-menu {
-  position: relative; /* Essencial para o dropdown flutuar abaixo dele */
-  cursor: pointer;
-}
-
-/* 2. O gatilho (Nome + Ícone) */
-.profile-menu-trigger {
-  display: flex;
-  align-items: center;
-  gap: 8px; /* Espaço entre o nome e o ícone */
-  padding: 8px;
-  border-radius: 5px;
-  transition: background-color 0.2s;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #f0f0f0; /* Um leve destaque ao passar o mouse */
+    filter: brightness(90%);
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
   }
 }
 
-.profile-icon {
-  color: #333;
-}
-
-/* 3. O contêiner do dropdown (escondido por padrão) */
-.profile-dropdown-content {
-  display: none; /* Escondido por padrão */
-  position: absolute;
-  top: 100%; /* Aparece logo abaixo do gatilho */
-  right: 0; /* Alinha o menu pela direita */
-  min-width: 200px;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  z-index: 1000;
-  padding: 8px 0; /* Espaço interno em cima e embaixo */
-}
-
-/* 4. A MÁGICA: Mostra o dropdown quando o mouse passa por cima do contêiner */
-.profile-menu:hover .profile-dropdown-content {
-  display: block;
-}
-
-/* 5. Estilo dos links e do botão dentro do dropdown */
-.profile-dropdown-content a,
-.profile-dropdown-content button {
-  display: block;
-  width: 100%;
-  padding: 12px 16px;
-  text-decoration: none;
-  color: #333;
-  background-color: transparent;
+.btn-secondary {
+  padding: 0.75rem 1.5rem;
+  background-color: #6c757d; /* Cinza padrão para secundário */
+  color: var(--color-text-light);
   border: none;
-  text-align: left; /* Alinha o texto do botão à esquerda */
-  font-size: 1rem;
-  font-family: Arial, sans-serif;
+  border-radius: 5px;
   cursor: pointer;
-  box-sizing: border-box; /* Garante que o padding não quebre o layout */
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    filter: brightness(90%);
+  }
 }
 
-.profile-dropdown-content a:hover,
-.profile-dropdown-content button:hover {
-  background-color: #f5f5f5;
+.success-message {
+  background-color: var(--color-success);
+  color: var(--color-text-light);
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  text-align: center;
 }
 
-/* Linha separadora */
-.profile-dropdown-content hr {
-  border: 0;
-  border-top: 1px solid #eee;
-  margin: 8px 0;
+.error-message {
+  background-color: var(--color-error);
+  color: var(--color-text-light);
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  text-align: center;
 }
 
-/* Estilo específico para o botão de Sair */
-.profile-dropdown-content .btn-logout {
-  color: #d9534f; /* Vermelho para "Sair" */
-  font-weight: 500;
+// Estilo para links globais (navbar, etc.)
+a {
+  color: var(--color-card); /* Default para links */
+  text-decoration: none;
+
+  &:hover {
+    color: var(--color-primary-button); /* Laranja no hover */
+  }
 }

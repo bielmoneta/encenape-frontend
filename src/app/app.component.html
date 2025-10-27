@@ -1,41 +1,44 @@
 <nav class="navbar">
-  <div class="navbar-container">
-    <a class="navbar-brand" routerLink="/">EncenaPe</a>
-    <ul class="navbar-links">
-      <li><a routerLink="/">Início</a></li>
-      <li><a routerLink="/eventos">Eventos</a></li>
-      <li><a routerLink="/criar-evento">Criar Evento</a></li>
-      <li><a routerLink="/ajuda">Ajuda</a></li>
-    </ul>
-
- <div class="navbar-auth">
-
-  <div *ngIf="currentUser$ | async as user; else loggedOutLinks" class="profile-menu">
-
-    <div class="profile-menu-trigger">
-      <span class="navbar-username">Olá, {{ user.nome }}</span>
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="profile-icon">
-        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-        <circle cx="12" cy="7" r="4"></circle>
-      </svg>
-    </div>
-
-    <div class="profile-dropdown-content">
-      <a routerLink="/perfil">Meu Perfil</a>
-      <a routerLink="/meus-ingressos">Meus Ingressos</a>
-      <hr>
-      <button class="btn-logout" (click)="logout()">Sair</button>
-    </div>
-
+  <div class="navbar-left">
+    <a routerLink="/" class="logo-container">
+      <img src="images/Logo-EncenaPE.png" alt="Logo EncenaPE" class="logo">
+    </a>
   </div>
 
-  <ng-template #loggedOutLinks>
-    <a class="btn-secondary" routerLink="/login">Entrar</a>
-    <a class="btn-primary" routerLink="/register">Cadastrar</a>
-  </ng-template>
+  <ul class="navbar-links">
+    <li><a routerLink="/">Início</a></li>
+    <li><a routerLink="/eventos">Eventos</a></li>
+    <li><a routerLink="/ajuda">Ajuda</a></li>
+  </ul>
 
-</div>
+  <div class="navbar-right">
+    <div class="auth-section">
+      <div *ngIf="currentUser$ | async as user; else loggedOutLinks" class="profile-menu">
+
+        <div class="profile-menu-trigger">
+          <span class="navbar-username">Olá, {{ user.nome }}</span>
+        </div>
+
+        <div class="profile-dropdown-content">
+          <a routerLink="/perfil">Meu Perfil</a>
+          <a routerLink="/meus-ingressos">Meus Ingressos</a>
+          <a routerLink="/criar-evento">Criar Evento</a>
+          <hr>
+          <button class="btn-logout" (click)="logout()">Sair</button>
+        </div>
+      </div>
+
+      <ng-template #loggedOutLinks>
+        <div class="auth-buttons">
+          <a class="btn-primary" routerLink="/login">Login</a>
+          <a class="btn-primary" routerLink="/register">Cadastrar</a>
+        </div>
+      </ng-template>
+    </div>
+
   </div>
 </nav>
 
-<router-outlet></router-outlet>
+<div class="content-wrapper">
+  <router-outlet></router-outlet>
+</div>

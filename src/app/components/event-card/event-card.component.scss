@@ -1,32 +1,62 @@
-/* Estilo funcional, sem o design da foto */
 .card-container {
-  border: 1px solid #ccc;
+  background-color: var(--color-card); /* Fundo do card */
+  color: var(--color-text-light); /* Texto dentro do card */
   border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 16px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-hr {
-  border: 0;
-  border-top: 1px solid #eee;
-  margin: 12px 0;
-}
-
-.card-actions {
-  margin-top: 1rem;
-  text-align: right;
-}
-
-.btn-comprar {
-  padding: 8px 16px;
-  background-color: #28a745; // Verde
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: transform 0.2s ease-in-out;
 
   &:hover {
-    background-color: #218838;
+    transform: translateY(-5px); /* Efeito de elevação no hover */
+  }
+
+  h3 {
+    margin-top: 0;
+    color: var(--color-text-light); /* Título dentro do card */
+    font-size: 1.5rem;
+  }
+
+  p {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.3); /* Linha divisória mais clara */
+    margin: 1rem 0;
+  }
+
+  small {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+
+    strong {
+      color: var(--color-text-light); /* Garante que o strong também seja claro */
+    }
+  }
+
+  .card-actions {
+    margin-top: 1.5rem;
+    text-align: right;
+
+    .btn-comprar {
+      padding: 0.75rem 1.25rem;
+      background-color: var(--color-primary-button); /* Laranja */
+      color: var(--color-text-light);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        filter: brightness(90%);
+      }
+    }
   }
 }

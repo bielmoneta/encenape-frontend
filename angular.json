@@ -26,6 +26,7 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
+              "src/app/assets/images/Logo-EncenaPE.png",
               {
                 "glob": "**/*",
                 "input": "public"

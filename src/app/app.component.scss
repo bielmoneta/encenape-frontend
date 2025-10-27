@@ -1,0 +1,168 @@
+/* ======================================================
+   Estilos da Barra de Navegação Principal (AppComponent)
+   ====================================================== */
+
+.navbar {
+  display: flex;                // Ativa o Flexbox para alinhar os filhos
+  justify-content: space-between; // Espaça: empurra left/right para as bordas, centraliza o meio
+  align-items: center;          // Alinha verticalmente os itens no centro
+  background-color: var(--color-card); // Fundo roxo da navbar
+  padding: 0.8rem 2rem;           // Espaçamento interno (vertical, horizontal)
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); // Sombra sutil abaixo
+}
+
+/* --- Bloco da Esquerda (Logo) --- */
+.navbar-left {
+  .logo-container {
+    color: var(--color-text-light); // Cor para o texto 'LOGO VAI AQUI' se a imagem falhar
+    text-decoration: none;
+
+    .logo {
+      height: 40px;            // Altura da logo
+      width: auto;             // Largura automática para manter proporção
+      display: block;          // Evita espaço extra abaixo da imagem
+      vertical-align: middle; // Alinha melhor se houver texto ao lado
+    }
+  }
+}
+
+/* --- Bloco Central (Links Principais) --- */
+.navbar-links {
+  list-style: none;     // Remove os bullet points (bolinhas) da lista
+  margin: 0;            // Remove margens padrão da tag <ul>
+  padding: 0;           // Remove paddings padrão da tag <ul>
+  display: flex;        // Alinha os itens da lista (<li>) horizontalmente
+  gap: 2rem;            // Espaçamento horizontal entre os itens da lista (li)
+
+  li {
+    // Estilos para o <li> se necessário (geralmente não precisa)
+
+    a { // Estilos para os links dentro da lista
+      text-decoration: none;            // Remove o sublinhado
+      color: var(--color-text-light); // Cor clara padrão (visível no fundo roxo)
+      font-weight: bold;
+      font-size: 1.1rem;
+      display: inline-block;        // Permite aplicar transform
+
+      // Transição suave para cor e movimento
+      transition: color 0.2s ease, transform 0.2s ease-out;
+
+      &:hover {
+        color: var(--color-primary-button); // Laranja ao passar o mouse
+        transform: translateX(3px);       // Efeito de mover para frente
+      }
+    }
+  }
+}
+
+/* --- Bloco da Direita (Autenticação/Perfil) --- */
+.navbar-right {
+  color: var(--color-text-light); // Define a cor padrão do texto nesta área
+
+  .auth-section { // Contêiner geral para a lógica *ngIf
+    display: flex; // Mantém alinhamento consistente
+    align-items: center;
+  }
+
+  /* Estilos para os botões Login/Cadastro (quando deslogado) */
+  .auth-buttons {
+    display: flex;
+    gap: 0.8rem; // Espaço entre os botões
+
+    a.btn-primary { // Aplica estilo de botão primário aos links
+      padding: 0.5rem 1rem;
+      background-color: var(--color-primary-button);
+      color: var(--color-text-light);
+      border-radius: 5px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: filter 0.2s ease;
+
+      &:hover {
+        filter: brightness(90%);
+      }
+    }
+  }
+
+  /* Estilos para o Menu de Perfil (quando logado) */
+  .profile-menu {
+    position: relative; // Contexto para o dropdown absoluto
+    cursor: pointer;
+
+    .profile-menu-trigger {
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      border-radius: 5px;
+      // Removido background-color do hover do trigger
+
+      .navbar-username {
+        color: var(--color-text-light); // Garante que o nome seja claro
+        font-weight: bold;
+        display: inline-block; // Para transform funcionar
+        transition: color 0.2s ease, transform 0.2s ease-out;
+
+        &:hover {
+          color: var(--color-primary-button); // Laranja no hover do nome
+          transform: translateX(3px);       // Move o nome
+        }
+      }
+    } // Fim .profile-menu-trigger
+
+    /* O Dropdown Escondido */
+    .profile-dropdown-content {
+      display: none; // Escondido por padrão
+      position: absolute;
+      top: 100%;       // Logo abaixo do trigger
+      right: 0;        // Alinhado à direita
+      min-width: 200px;
+      background-color: white; // Fundo branco para o dropdown
+      border: 1px solid var(--color-border-light);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      z-index: 1000;    // Garante que fique acima de outros conteúdos
+      padding: 8px 0;   // Espaço interno vertical
+
+      a, button {
+        display: block;
+        width: 100%;
+        padding: 12px 16px;
+        text-decoration: none;
+        color: var(--color-text-dark); // Texto escuro dentro do dropdown
+        background-color: transparent;
+        border: none;
+        text-align: left;
+        cursor: pointer;
+        font-size: 1rem;
+        box-sizing: border-box;
+
+        &:hover {
+          background-color: #f5f5f5; // Fundo cinza claro no hover do item
+        }
+      }
+
+      hr { // Linha divisória
+        border: 0;
+        border-top: 1px solid #eee;
+        margin: 8px 0;
+      }
+
+      .btn-logout { // Botão Sair
+        color: var(--color-error); // Cor vermelha
+        font-weight: 500;
+        width: 100%; // Garante que ocupe a largura
+      }
+    } // Fim .profile-dropdown-content
+
+    /* A Mágica: Mostra o dropdown quando passa o mouse no menu */
+    &:hover .profile-dropdown-content {
+      display: block;
+    }
+
+  } // Fim .profile-menu
+} // Fim .navbar-right
+
+/* Wrapper para o conteúdo principal, para evitar que fique embaixo da navbar (se ela for fixa) */
+.content-wrapper {
+  padding-top: 20px; // Adiciona um espaço no topo da área de conteúdo
+}
